@@ -2,7 +2,6 @@ import axios from "axios";
 import { getUserdata } from "./Local-storage";
 
 axios.defaults.baseURL = "https://identitytoolkit.googleapis.com/v1";
-const API_KEY = "AIzaSyDNOfeef2euCEPEmYPzsgEzRkDHSuk6_mU"
 const REGISTER_URL = `/accounts:signUp?key=${API_KEY}`;
 const LOGIN_URL = `/accounts:signInWithPassword?key=${API_KEY}`;
 const GET_USER_DATA_URL = `/accounts:lookup?key=${API_KEY}`;
@@ -15,6 +14,7 @@ export const RegisterApi = (userValues) => {
     }
     return axios.post(REGISTER_URL, data);
 }
+<<<<<<< HEAD
 
 export const LoginApi = (userValues) => {
     let data = {
@@ -31,3 +31,5 @@ export const GetUserDataApi = () => {
     return axios.post(GET_USER_DATA_URL, data);
 }
 
+=======
+>>>>>>> origin/main
