@@ -2,6 +2,10 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Paper, Typography, TextField, Button, Box, Stack, InputAdornment, IconButton, Snackbar } from "@mui/material";
 import { useState } from "react";
 import { Oval } from "react-loader-spinner";
+import { LoginApi } from "../services/Api";
+import { storeId } from "../services/Local-storage";
+import { isAuthenticate } from "../services/Auth";
+import { Navigate, Link } from "react-router-dom";
 
 function LoginContainer() {
     const boxStyle = {
@@ -61,6 +65,24 @@ function LoginContainer() {
             setIsLoading(true)
             setButtonState(true)
         }
+
+        LoginApi(userLoginValues).then((response) => {
+            console.log(response);
+            storeId(response.data.idToken)
+        }).catch((error) => {
+            console.log(error);
+            if (error.response.data.error.message === "INVALID_LOGIN_CREDENTIALS") {
+                setSnackMsg("Invalid credentials. Try Again!");
+                setSnack(true);
+            }
+        }).finally(() => {
+            setIsLoading(false);
+            setButtonState(false);
+        })
+    }
+
+    if (isAuthenticate()) {
+        return <Navigate to='/' />
     }
 
     return (
@@ -115,6 +137,15 @@ function LoginContainer() {
                     >
                         Sign in
                     </Button>
+                    <Typography align="center">
+                        Create new account
+                        <span> </span>
+                        <Link
+                            to='/register'
+                        >
+                            Register
+                        </Link>
+                    </Typography>
                 </Paper>
                 <Snackbar
                     message={snackMsg}

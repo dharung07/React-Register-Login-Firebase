@@ -6,7 +6,7 @@ import { Oval } from 'react-loader-spinner';
 import { RegisterApi } from "../services/Api";
 import { storeId } from "../services/Local-storage";
 import { isAuthenticate } from "../services/Auth";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 
 function RegistrationContainer() {
     const boxStyle = {
@@ -68,22 +68,23 @@ function RegistrationContainer() {
             setIsLoading(true)
         }
 
-        RegisterApi(userValues).then((response) => {
-            storeId(response.data.idToken);
-        }).catch((error) => {
-            console.log(error);
-            if (error.response.data.error.message === "EMAIL_EXISTS") {
-                setSnackMsg('User already exist');
-                setSnack(true);
-            }
-            if (String(error.response.data.error.message).includes('WEAK_PASSWORD')) {
-                setSnackMsg('Password should be at least 6 characters');
-                setSnack(true);
-            }
-        }).finally(() => {
-            setIsLoading(false)
-            setButtonState(false)
-        })
+        RegisterApi(userValues)
+            .then((response) => {
+                storeId(response.data.idToken);
+            }).catch((error) => {
+                console.log(error);
+                if (error.response.data.error.message === "EMAIL_EXISTS") {
+                    setSnackMsg('User already exist');
+                    setSnack(true);
+                }
+                if (String(error.response.data.error.message).includes('WEAK_PASSWORD')) {
+                    setSnackMsg('Password should be at least 6 characters');
+                    setSnack(true);
+                }
+            }).finally(() => {
+                setIsLoading(false)
+                setButtonState(false)
+            })
     }
 
     if (isAuthenticate()) {
@@ -126,7 +127,7 @@ function RegistrationContainer() {
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
-                                        <IconButton onClick={() => {setPasswordVisibility(!passwordVisibility)}}>
+                                        <IconButton onClick={() => { setPasswordVisibility(!passwordVisibility) }}>
                                             {passwordVisibility ? <VisibilityIcon /> : <VisibilityOffIcon />}
                                         </IconButton>
                                     </InputAdornment>
@@ -152,6 +153,15 @@ function RegistrationContainer() {
                     >
                         Register
                     </Button>
+                    <Typography align="center">
+                        Already have an account
+                        <span> </span>
+                        <Link
+                            to='/login'
+                        >
+                            Login
+                        </Link>
+                    </Typography>
                 </Paper>
                 <Snackbar
                     message={snackMsg}
