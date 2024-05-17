@@ -28,6 +28,8 @@ function HomePage() {
         alignItems: 'center',
     }
 
+    console.log(process.env);
+
     const [userData, setUserData] = useState({
         name: "",
         email: "",

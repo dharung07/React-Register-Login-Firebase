@@ -15,7 +15,6 @@ export const RegisterApi = (userValues) => {
     }
     return axios.post(REGISTER_URL, data);
 }
-<<<<<<< HEAD
 
 export const LoginApi = (userValues) => {
     let data = {
@@ -32,5 +31,3 @@ export const GetUserDataApi = () => {
     return axios.post(GET_USER_DATA_URL, data);
 }
 
-=======
->>>>>>> origin/main
