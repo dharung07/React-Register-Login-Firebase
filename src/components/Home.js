@@ -7,6 +7,7 @@ import { isAuthenticate } from "../services/Auth";
 import { Navigate } from "react-router-dom";
 
 function HomePage() {
+    console.log(process.env);
     const boxStyle = {
         height: "100vh",
         width: "100vw",
@@ -27,8 +28,6 @@ function HomePage() {
         justifyContent: 'center',
         alignItems: 'center',
     }
-
-    console.log(process.env);
 
     const [userData, setUserData] = useState({
         name: "",
@@ -61,14 +60,47 @@ function HomePage() {
         })
     }, [])
 
-
-    if (!loginState) {
-        return (
+    return (
+        isAuthenticate() ?
             <>
+                <Box sx={boxStyle}>
+                    <Paper sx={paperStyle}>
+                        <Typography mb={5} variant="h3" >DASHBOARD</Typography>
+                        {userData.name && userData.email && userData.userId ?
+                            <Typography mb={5}>
+                                User Name : {userData.name}
+                                <br />
+                                User Email : {userData.email}
+                                <br />
+                                User Localid : {userData.userId}
+                                <br />
+                                Created At : {userData.userCreatedAt}
+                            </Typography>
+                            : <Box mb={5}>
+                                <Oval
+                                    height="20"
+                                    width="40"
+                                    radius="9"
+                                    color="black"
+                                    ariaLabel="loading"
+                                />
+                            </Box>
+                        }
+                        <Button
+                            variant="contained"
+                            color="error"
+                            onClick={handleLogoutButton}
+                        >
+                            Logout
+                        </Button>
+                    </Paper>
+                </Box>
+            </>
+            : <>
                 <Box sx={boxStyle}>
                     <Box textAlign="center">
                         <Button
-                            sx={{ marginBottom: '15px'}}
+                            sx={{ marginBottom: '15px' }}
                             variant="contained"
                             color="success"
                             href="/login"
@@ -82,44 +114,6 @@ function HomePage() {
                     </Box>
                 </Box>
             </>
-        )
-    }
-
-    return (
-        <>
-            <Box sx={boxStyle}>
-                <Paper sx={paperStyle}>
-                    <Typography mb={5} variant="h3" >DASHBOARD</Typography>
-                    {userData.name && userData.email && userData.userId ?
-                        <Typography mb={5}>
-                            User Name : {userData.name}
-                            <br />
-                            User Email : {userData.email}
-                            <br />
-                            User Localid : {userData.userId}
-                            <br />
-                            Created At : {userData.userCreatedAt}
-                        </Typography>
-                        : <Box mb={5}>
-                            <Oval
-                                height="20"
-                                width="40"
-                                radius="9"
-                                color="black"
-                                ariaLabel="loading"
-                            />
-                        </Box>
-                    }
-                    <Button
-                        variant="contained"
-                        color="error"
-                        onClick={handleLogoutButton}
-                    >
-                        Logout
-                    </Button>
-                </Paper>
-            </Box>
-        </>
     )
 
 }
