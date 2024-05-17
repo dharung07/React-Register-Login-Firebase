@@ -1,11 +1,9 @@
-# Project Overview
-
-## Registration and Login Page
+# Registration and Login Page
 
 This project features a Register and Login page built with React and Material UI, leveraging Firebase for backend services. It provides a sleek and responsive user interface for user authentication, ensuring a smooth and secure experience.
 
 # Screenshots
-
+g
 ![Register](./screenshots/register.png)
 ![Login](./screenshots/login.png)
 ![Dahsboard](./screenshots/dashboard.png)
