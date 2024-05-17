@@ -7,7 +7,6 @@ import { isAuthenticate } from "../services/Auth";
 import { Navigate } from "react-router-dom";
 
 function HomePage() {
-    console.log(process.env);
     const boxStyle = {
         height: "100vh",
         width: "100vw",
@@ -47,17 +46,33 @@ function HomePage() {
         setLoginState(false)
     }
 
+    // useEffect(() => {
+    //     GetUserDataApi().then((response) => {
+    //         setUserData({
+    //             name: response.data.users[0].displayName,
+    //             email: response.data.users[0].email,
+    //             userId: response.data.users[0].localId,
+    //             userCreatedAt: convertTimestamp(response.data.users[0].createdAt),
+    //         })
+    //     }).catch((error) => {
+    //         console.log(error);
+    //     })
+    // }, [])
+
     useEffect(() => {
-        GetUserDataApi().then((response) => {
-            setUserData({
-                name: response.data.users[0].displayName,
-                email: response.data.users[0].email,
-                userId: response.data.users[0].localId,
-                userCreatedAt: convertTimestamp(response.data.users[0].createdAt),
+        if (isAuthenticate()) {
+            GetUserDataApi().then((response) => {
+                setUserData({
+                    name: response.data.users[0].displayName,
+                    email: response.data.users[0].email,
+                    userId: response.data.users[0].localId,
+                    userCreatedAt: convertTimestamp(response.data.users[0].createdAt),
+                })
+            }).catch((error) => {
+                console.log(error);
             })
-        }).catch((error) => {
-            console.log(error);
-        })
+
+        }
     }, [])
 
     return (

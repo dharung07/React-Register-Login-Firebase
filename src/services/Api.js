@@ -2,10 +2,10 @@ import axios from "axios";
 import { getUserdata } from "./Local-storage";
 
 axios.defaults.baseURL = "https://identitytoolkit.googleapis.com/v1";
-// const API_KEY = `AIzaSyDNOfeef2euCEPEmYPzsgEzRkDHSuk6_mU`;
-const REGISTER_URL = `/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_API_KEY}`;
-const LOGIN_URL = `/accounts:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_API_KEY}`;
-const GET_USER_DATA_URL = `/accounts:lookup?key=${process.env.REACT_APP_FIREBASE_API_KEY}`;
+const API_KEY = `AIzaSyDNOfeef2euCEPEmYPzsgEzRkDHSuk6_mU`;
+const REGISTER_URL = `/accounts:signUp?key=${API_KEY}`;
+const LOGIN_URL = `/accounts:signInWithPassword?key=${API_KEY}`;
+const GET_USER_DATA_URL = `/accounts:lookup?key=${API_KEY}`;
 
 export const RegisterApi = (userValues) => {
     let data = {
